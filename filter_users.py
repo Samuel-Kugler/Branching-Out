@@ -18,19 +18,6 @@ def get_data() -> list:
         return []
 
 
-def filter_users_by_name(name: str):
-    """
-    Displays the data of all persons with the name given.
-    :param name: str
-    """
-    users = get_data()
-
-    filtered_users = [user for user in users if user["name"].lower() == name.lower()]
-
-    for user in filtered_users:
-        print(user)
-
-
 def get_name() -> str:
     """
     Gets a valid name and returns it.
@@ -46,19 +33,41 @@ def get_name() -> str:
         return name
 
 
+def filter_users_by_name():
+    """
+    Displays the data of all persons with the name given.
+    """
+    users = get_data()
+    name = get_name()
+
+    filtered_users = [user for user in users if user["name"].lower() == name.lower()]
+
+    for user in filtered_users:
+        print(user)
+
+
+def get_options() -> str:
+    """
+    Gets all the command options.
+    :return: str
+    """
+    options = ""
+    for key in commands.keys():
+        options += key + ", "
+
+    return options[:-2]
+
+
 commands = {
-    "name": {
-        "execute": filter_users_by_name,
-        "args": get_name
-    }
+    "name": filter_users_by_name
 }
 
 
 if __name__ == "__main__":
-    filter_option = (input(f"What would you like to filter by? (Currently, {commands.keys()} is supported): ").strip()
+    filter_option = (input(f"What would you like to filter by? (Currently, {get_options()} is supported): ").strip()
                      .lower())
 
     if filter_option in commands.keys():
-        commands[filter_option]["execute"](commands[filter_option]["args"]())
+        commands[filter_option]()
     else:
         print("Filtering by that option is not yet supported.")
