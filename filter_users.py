@@ -42,6 +42,49 @@ def filter_users_by_name():
 
     filtered_users = [user for user in users if user["name"].lower() == name.lower()]
 
+    if len(filtered_users) == 0:
+        print("No user met the criteria!")
+        return
+
+    for user in filtered_users:
+        print(user)
+
+
+def get_age() -> int:
+    """
+    Gets the age
+    :return: int
+    """
+    while True:
+        age = input("Enter a age you want to filter users: ").strip()
+
+        if not age.isdigit():
+            print(f"{age} is not a valid input! Only positive Integers are valid.")
+            continue
+
+        age = int(age)
+        MAX_AGE = 130
+
+        if age > MAX_AGE:
+            print(f"{age} is not a possible age, please enter age between 0 and {MAX_AGE}!")
+            continue
+
+        return age
+
+
+def filter_users_by_age():
+    """
+       Displays the data of all persons with the name given.
+       """
+    users = get_data()
+    age = get_age()
+
+    filtered_users = [user for user in users if user["age"] == age]
+
+    if len(filtered_users) == 0:
+        print("No user met the criteria!")
+        return
+
     for user in filtered_users:
         print(user)
 
@@ -59,7 +102,8 @@ def get_options() -> str:
 
 
 commands = {
-    "name": filter_users_by_name
+    "name": filter_users_by_name,
+    "age": filter_users_by_age
 }
 
 
