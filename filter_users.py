@@ -1,6 +1,9 @@
 import json
 from json import JSONDecodeError
 
+#Possible Mail Providers
+possible_mail_providers = ["@example.com"]
+
 
 def get_data() -> list:
     """
@@ -15,7 +18,7 @@ def get_data() -> list:
     except FileNotFoundError:
         return []
     except JSONDecodeError:
-        return []
+        return [{"id": 0, "name": "test", "age": -1, "email": "test@example.com"}]
 
 
 def get_name() -> str:
@@ -89,6 +92,42 @@ def filter_users_by_age():
         print(user)
 
 
+def get_email() -> str:
+    """
+    Gets a valid email from the user.
+    :return: str
+    """
+    while True:
+        email = input("Please enter the email of the student: ").strip()
+
+        position_mail_prefix = email.find("@")
+        if not email[position_mail_prefix:] in possible_mail_providers:
+            print(f"{email} is not a valid email! Possible emails end with: {possible_mail_providers}")
+            continue
+
+        return email
+
+
+def filter_users_by_email():
+    """
+    Displays the user with the correct email.
+    """
+    users = get_data()
+    email = get_email()
+    filtered_user = None
+
+    for user in users:
+        if user["email"] == email:
+            filtered_user = user
+            break
+
+    if filtered_user is None:
+        print("No user for this email!")
+        return
+
+    print(filtered_user)
+
+
 def get_options() -> str:
     """
     Gets all the command options.
@@ -103,7 +142,8 @@ def get_options() -> str:
 
 commands = {
     "name": filter_users_by_name,
-    "age": filter_users_by_age
+    "age": filter_users_by_age,
+    "email": filter_users_by_email
 }
 
 
