@@ -16,7 +16,7 @@ def get_data() -> list:
 
         return users
     except FileNotFoundError:
-        return []
+        return [{"id": 0, "name": "test", "age": -1, "email": "test@example.com"}]
     except JSONDecodeError:
         return [{"id": 0, "name": "test", "age": -1, "email": "test@example.com"}]
 
