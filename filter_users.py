@@ -1,6 +1,7 @@
 import json
 from json import JSONDecodeError
 
+
 #Possible Mail Providers
 possible_mail_providers = ["@example.com"]
 
@@ -77,7 +78,7 @@ def get_age() -> int:
 
 def filter_users_by_age():
     """
-       Displays the data of all persons with the name given.
+       Displays the data of all persons with the age given.
        """
     users = get_data()
     age = get_age()
@@ -101,6 +102,7 @@ def get_email() -> str:
         email = input("Please enter the email of the student: ").strip()
 
         position_mail_prefix = email.find("@")
+
         if not email[position_mail_prefix:] in possible_mail_providers:
             print(f"{email} is not a valid email! Possible emails end with: {possible_mail_providers}")
             continue
@@ -134,6 +136,7 @@ def get_options() -> str:
     :return: str
     """
     options = ""
+
     for key in commands.keys():
         options += key + ", "
 
