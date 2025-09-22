@@ -95,18 +95,32 @@ def filter_users_by_age():
 
 def get_email() -> str:
     """
-    Gets a valid email from the user.
+    Requests a valid email from the user.
     :return: str
     """
     while True:
         email = input("Please enter the email of the student: ").strip()
 
+        #Checking for empty search request
+        if not email:
+            print("Bad input! Please enter a e-mail address!")
+            continue
+
+        #Checking for e-mails @ issues
+        at_sign_counter = email.count("@")
+
+        if at_sign_counter != 1:
+            print("Bad input! Valid emails have only one @!")
+            continue
+
+        #Checking for a valid email-provider
         position_mail_prefix = email.find("@")
 
         if not email[position_mail_prefix:] in possible_mail_providers:
             print(f"{email} is not a valid email! Possible emails end with: {possible_mail_providers}")
             continue
 
+        #e-mail is valid
         return email
 
 
