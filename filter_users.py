@@ -99,7 +99,7 @@ def get_email() -> str:
     :return: str
     """
     while True:
-        email = input("Please enter the email of the student: ").strip()
+        email = input("Please enter the email of the student: ").strip().lower()
 
         #Checking for empty search request
         if not email:
@@ -126,22 +126,16 @@ def get_email() -> str:
 
 def filter_users_by_email():
     """
-    Displays the user with the correct email.
+    Searches for the user with the mail and returns its information.
     """
     users = get_data()
     email = get_email()
-    filtered_user = None
 
-    for user in users:
-        if user["email"] == email:
-            filtered_user = user
-            break
+    #searches the data for the user
+    filtered_user = next((user for user in users if user.get("email").lower() == email), None)
 
-    if filtered_user is None:
-        print("No user for this email!")
-        return
-
-    print(filtered_user)
+    #output of result
+    print("No user for this email!") if filtered_user is None else print(filtered_user)
 
 
 def get_options() -> str:
